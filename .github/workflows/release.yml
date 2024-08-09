@@ -54,6 +54,7 @@ jobs:
 
       - name: Upload to luarocks
         env:
+          VERSION: ${{ steps.release_env.outputs.version_withou_v }}
           LUAROCKS_TOKEN: ${{ secrets.LUAROCKS_TOKEN }}
         run: |
           make pack
