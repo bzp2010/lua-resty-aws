@@ -37,7 +37,7 @@ jobs:
       - name: Check dot version
         shell: bash
         run: |
-          if [ "${{ steps.release_env.outputs.version_withou_v }}" = "$(cat .version)" ]; then
+          if [ "${{ steps.release_env.outputs.version_withou_v }}" != "$(cat .version)" ]; then
               echo "VERSION '${{ steps.release_env.outputs.version_withou_v }}' does not match the dot version file '$(cat .version)'"
               exit 1
           fi
