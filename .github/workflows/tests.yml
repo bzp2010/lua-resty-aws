@@ -1,9 +1,10 @@
 name: Test
 
-on: [push, pull_request]
-
-env:
-  LIBEXPAT_DOWNLOAD_URL: https://github.com/libexpat/libexpat/releases/download/R_2_5_0/expat-2.5.0.tar.gz
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
 
@@ -16,6 +17,8 @@ jobs:
         openresty_version:
           - 1.17.8.2
           - 1.19.9.1
+          - 1.21.4.3
+          - 1.25.3.2
 
     runs-on: ubuntu-latest
     container:
@@ -29,18 +32,6 @@ jobs:
       run: |
         apk add --no-cache curl perl bash wget git perl-dev libarchive-tools nodejs jq
         ln -s /usr/bin/bsdtar /usr/bin/tar
-
-    - name: Build libexpat
-      if: matrix.openresty_version == '1.17.8.2'
-      run: |
-        mkdir -p /tmp/expat
-        curl -Ls $LIBEXPAT_DOWNLOAD_URL | tar -xz --strip-components=1 -f - -C /tmp/expat
-        cd /tmp/expat && ./configure && make && make install
-
-    - name: Install libexpat from package manager
-      if: matrix.openresty_version == '1.19.9.1'
-      run: |
-        apk add --no-cache expat-dev
 
     - name: Cache
       uses: actions/cache@v2
