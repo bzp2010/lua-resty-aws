@@ -36,10 +36,6 @@ describe("operations protocol", function()
       },
       input = {
         type = "structure",
-        --locationName = "mainXmlElement",  -- only for rest-xml protocol
-        --xmlNamespace = {                  -- only for rest-xml protocol
-        --  uri = "cool-name-space"
-        --},
         required = {
           "RoleArn",
           "RoleSessionName"
