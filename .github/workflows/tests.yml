@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  LIBEXPAT_DOWNLOAD_URL: https://github.com/libexpat/libexpat/releases/download/R_2_5_0/expat-2.5.0.tar.gz
-
 jobs:
 
   tests:
