@@ -2,15 +2,13 @@ name: Release
 
 on:
   push:
-    branches:
-      - "main"
-    paths:
-      - 'rockspec/**'
+    branches: [main]
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    if: startsWith(github.event.head_commit.message, 'feat: release v')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -50,5 +48,8 @@ jobs:
         env:
           LUAROCKS_TOKEN: ${{ secrets.LUAROCKS_TOKEN }}
         run: |
+          make pack
           luarocks install dkjson
-          luarocks upload rockspec/lua-resty-aws-${{ steps.release_env.outputs.version_withou_v }}-0.rockspec --api-key=${LUAROCKS_TOKEN}
+          luarocks upload --api-key=${LUAROCKS_TOKEN} \
+                          lua-resty-aws-${{ steps.release_env.outputs.version_withou_v }}-1.rockspec \
+                          lua-resty-aws-${{ steps.release_env.outputs.version_withou_v }}-1.src.rock
