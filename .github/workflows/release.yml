@@ -47,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.release_env.outputs.version }}
+          tag_name: ${{ steps.release_env.outputs.version_withou_v }}
           release_name: ${{ steps.release_env.outputs.version }}
           draft: false
           prerelease: false
@@ -55,10 +55,5 @@ jobs:
       - name: Upload to luarocks
         env:
           VERSION: ${{ steps.release_env.outputs.version_withou_v }}
-          LUAROCKS_TOKEN: ${{ secrets.LUAROCKS_TOKEN }}
-        run: |
-          make pack
-          luarocks install dkjson
-          luarocks upload --api-key=${LUAROCKS_TOKEN} \
-                          lua-resty-aws-${{ steps.release_env.outputs.version_withou_v }}-1.rockspec \
-                          lua-resty-aws-${{ steps.release_env.outputs.version_withou_v }}-1.src.rock
+          APIKEY: ${{ secrets.LUAROCKS_TOKEN }}
+        run: make upload
