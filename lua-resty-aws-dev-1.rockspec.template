@@ -1,7 +1,7 @@
-local package_name = "lua-resty-aws"
+local package_name = "api7-lua-resty-aws"
 local package_version = "dev"
 local rockspec_revision = "1"
-local github_account_name = "Kong"
+local github_account_name = "api7"
 local github_repo_name = package_name
 local git_checkout = package_version == "dev" and "main" or package_version
 
@@ -19,7 +19,7 @@ description = {
     AWS SDK generated from the same data as the AWS JavaScript SDK.
   ]],
   license = "Apache 2.0",
-  homepage = "https://"..github_account_name..".github.io/"..github_repo_name.."/topics/README.md.html"
+  homepage = "https://github.com/"..github_account_name.."/"..github_repo_name
 }
 
 dependencies = {
